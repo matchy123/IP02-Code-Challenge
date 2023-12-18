@@ -1,73 +1,134 @@
-# Restaurant Review System
+# Phase 3 Code Challenge: Restaurants- without SQLAlchemy
 
-Welcome to the Restaurant Review System, a Python project for creating and managing customer reviews for different restaurants!
+We have three models:
 
-## Overview
+- `Restaurant`
+- `Customer`
+- `Review`
 
-This project provides a straightforward and intuitive system for managing customer reviews of various restaurants. The system consists of three main classes: `Customer`, `Restaurant`, and `Review`. Users can add customers, restaurants, and reviews, and retrieve information such as customer details, restaurant details, and average star ratings.
+For our purposes, a `Restaurant` has many `Reviews`, a `Customer` has many `Review`s, and a `Review` belongs to a `Customer` and to a `Restaurant`.
 
-## Features
+`Restaurant` - `Customer` is a many-to-many relationship.
 
-- **Customer Management:** Create and manage customer profiles.
-- **Restaurant Reviews:** Add and view reviews for specific restaurants.
-- **Data Analysis:** Retrieve information about customers, restaurants, and average ratings.
+**Note**: You should draw your domain on paper or on a whiteboard _before you start coding_. Remember to identify a single source of truth for your data.
 
-## Classes
+## Topics
 
-### Customer
+- Classes and Instances
+- Class and Instance Methods
+- Variable Scope
+- Object Relationships
+- lists and list Methods
 
-The `Customer` class represents a customer who can add reviews for restaurants. It includes methods such as:
+## Instructions
 
-- `full_name()`: Returns the full name of the customer.
-- `restaurants()`: Returns a list of restaurants the customer has reviewed.
-- `add_review(restaurant, rating)`: Adds a review for a specified restaurant.
+To get started, use this [Pipfile](./Pipfile) Links to an external site. to install all dependencies required for this project.
+Build out all of the methods listed in the deliverables. The methods are listed in a suggested order, but you can feel free to tackle the ones you think are easiest. Be careful: some of the later methods rely on earlier ones.
 
-### Restaurant
+**Note!** - You'll need to create your own test sample instances so that you can try/test out your code. Make sure your relationships and methods work in the console before submitting.
+Writing error-free code is more important than completing all of the deliverables listed - prioritize writing methods that work over writing more methods that don't work. You should test your code in the console as you write.
 
-The `Restaurant` class represents a restaurant that can be reviewed. It includes methods such as:
+Similarly, messy code that works is better than clean code that doesn't. First, prioritize getting things working. Then, if there is time at the end, refactor your code to adhere to best practices. When you encounter duplicated logic, extract it into a shared helper method.
 
-- `average_star_rating()`: Returns the average star rating based on reviews.
-- `customers()`: Returns a list of customers who have reviewed the restaurant.
+## Deliverables
 
-### Review
+Write the following methods in the classes in the files provided. Feel free to build out any helper methods if needed.
 
-The `Review` class represents a review submitted by a customer for a specific restaurant. It includes methods such as:
+**Initializers, Readers, and Writers**
 
-- `customer()`: Returns the customer who submitted the review.
-- `restaurant()`: Returns the restaurant that was reviewed.
-- `rating()`: Returns the star rating given in the review.
+**Customer**
 
-## How to Use
+- `Customer __init__()`
+  - Customer should be initialized with a given name and family name, both strings (i.e., first and last name, like George Washington)"
+- `Customer given_name()`
+  - returns the customer's given name
+  - should be able to change after the customer is created
+- `Customer family_name()`
+  - returns the customer's family name
+  - should be able to change after the customer is created
+- `Customer full_name()`
+  - returns the full name of the customer, with the given name and the family name concatenated, Western style.
+- `Customer all()`
+  - returns **all** of the customer instances
 
-1. Clone the repository:
+**Restaurant**
 
-    ```bash
-    git clone https://github.com/mwangiowen/restaurant-review-system.git
-    cd restaurant-review-system
-    ```
+- `Restaurant __init__()`
+  - Restaurants should be initialized with a name, as a string
+- `Restaurant name()`
+  - returns the restaurant's name
+  - should not be able to change after the restaurant is created
 
-2. Install dependencies:
+**Review**
 
-    ```bash
-    # Assuming you have Python installed
-    # Install any required Python packages
-    ```
+- `Review __init__()`
+  - Reviews should be initialized with a customer, restaurant, and a rating (a number)
+- `Review rating()`
+  - returns the rating for a restaurant.
+- `Review all()`
+  - returns all of the reviews
 
-3. Run the script:
+## Object Relationship Methods
 
-    ```bash
-    # Assuming your main script is named main.py
-    python main.py
-    ```
+**Review**
 
-## Dependencies
+- `Review customer()`
+  - returns the customer object for that review
+  - Once a review is created, should not be able to change the customer
+- `Review restaurant()`
+  - returns the restaurant object for that given review
+  - Once a review is created, should not be able to change the restaurant
 
-- Python 3.11.6
+**Restaurant**
 
-## Contribution
+- `Restaurant reviews()`
+  - returns a list of all reviews for that restaurant
+- `Restaurant customers()`
+  - Returns a **unique** list of all customers who have reviewed a particular restaurant.
 
-If you'd like to contribute to this project, feel free to open an issue or submit a pull request.
+**Customer**
 
-## Author
+- `Customer restaurants()`
+  - Returns a **unique** list of all restaurants a customer has reviewed
+- `Customer add_review(restaurant, rating)`
+  - given a **restaurant object** and a star rating (as an integer), creates a new review and associates it with that customer and restaurant.
 
-This application was crafted by [mwangiowen]. You can find more of [mwangiowen]'s work on GitHub.
+## Aggregate and Association Methods
+
+**Customer**
+
+- `Customer num_reviews()`
+  - Returns the total number of reviews that a customer has authored
+- `Customer find_by_name(name)` class method
+  - given a string of a **full name**, returns the **first customer** whose full name matches
+- `Customer find_all_by_given_name(name)` class method
+  - given a string of a given name, returns an **list** containing all customers with that given name
+
+**Restaurant**
+
+- `Restaurant average_star_rating()`
+  - returns the average star rating for a restaurant based on its reviews
+  - Reminder: you can calculate the average by adding up all the ratings and dividing by the number of ratings
+
+## Technologies Used
+
+The following have been used on this project:
+
+- [Python3](https://docs.python.org/3.10/)
+- [Pytest](https://docs.pytest.org/en/latest/contents.html)
+
+## Project Setup
+
+- Clone the repository: `git clone <repository-url>`
+- Navigate to cloned repository: `cd phase-3-wk2-code-challenge`
+- Create pipenv environment: `pipenv shell`
+- Install dependencies: ` pipenv install`
+- Run test using pytest: `pytest`
+
+## Authors
+
+- [matchy](https://github.com/matchy123)
+
+## Copyright
+
+Released under the MIT License. See the [LICENSE](https://github.com/matchy123) file.
